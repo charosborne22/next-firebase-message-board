@@ -14,6 +14,7 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
+import Seo from "../components/Seo";
 export default function Details() {
   const router = useRouter();
   const routeData = router.query;
@@ -23,7 +24,7 @@ export default function Details() {
   // Submit a message
   const submitMessage = async () => {
     // Check if user is logged in
-    if (!auth.currentUser) return routeData.push("/auth/login");
+    if (!auth.currentUser) return router.push("/auth/login");
 
     if (!message) {
       toast.error("Don't leave an empty comment!", {
@@ -58,9 +59,11 @@ export default function Details() {
     if (!router.isReady) return;
     getComments();
   }, [router.isReady]);
+
   return (
     <>
-      <h1>Post Details</h1>
+      <Seo pageTitle={`Post by ${routeData.username}`} />
+      <h1 className="text-2xl">Post Details</h1>
       <Message {...routeData}></Message>
       <div className="my-4">
         <div>

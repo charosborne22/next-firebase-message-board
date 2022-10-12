@@ -10,6 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import Seo from "../components/Seo";
 
 export default function Post() {
   const route = useRouter();
@@ -81,37 +82,44 @@ export default function Post() {
   }, [user, loading]);
 
   return (
-    <div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
-      <h1 className="text-2xl">
-        {post.hasOwnProperty("id") ? "Edit Post" : "Create Post"}
-      </h1>
-      <form onSubmit={submitPost}>
-        <div>
-          <label htmlFor="post" className="block text-lg font-medium py-2">
-            Description
-          </label>
-          <textarea
-            value={post.description}
-            onChange={(e) => setPost({ ...post, description: e.target.value })}
-            name="post"
-            id="post"
-            className="bg-gray-800 h-48 w-full text-white rounded-lg p-2 text-sm"
-          ></textarea>
-          <p
-            className={`font-medium text-small ${
-              post.description.length > 300 ? "text-red-600" : ""
-            }`}
+    <>
+      <Seo
+        pageTitle={post.hasOwnProperty("id") ? "Edit Post" : "Create Post"}
+      />
+      <div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
+        <h1 className="text-2xl">
+          {post.hasOwnProperty("id") ? "Edit Post" : "Create Post"}
+        </h1>
+        <form onSubmit={submitPost}>
+          <div>
+            <label htmlFor="post" className="block text-lg font-medium py-2">
+              Description
+            </label>
+            <textarea
+              value={post.description}
+              onChange={(e) =>
+                setPost({ ...post, description: e.target.value })
+              }
+              name="post"
+              id="post"
+              className="bg-gray-800 h-48 w-full text-white rounded-lg p-2 text-sm"
+            ></textarea>
+            <p
+              className={`font-medium text-small ${
+                post.description.length > 300 ? "text-red-600" : ""
+              }`}
+            >
+              {post.description.length}/300
+            </p>
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-cyan-500 text-white font-medium p2 my-2 rounded-lg text-small"
           >
-            {post.description.length}/300
-          </p>
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-cyan-500 text-white font-medium p2 my-2 rounded-lg text-small"
-        >
-          Post
-        </button>
-      </form>
-    </div>
+            Post
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

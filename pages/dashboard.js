@@ -16,6 +16,7 @@ import Message from "../components/Message";
 import { BsTrash2Fill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import Link from "next/link";
+import Seo from "../components/Seo";
 
 export default function Dashbaord() {
   const route = useRouter();
@@ -45,6 +46,7 @@ export default function Dashbaord() {
 
   return (
     <>
+      <Seo pageTitle="My Posts" />
       <h1 className="text-2xl">My Posts</h1>
       <div>
         {posts.map((post) => {
